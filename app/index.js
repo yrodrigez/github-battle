@@ -6,12 +6,11 @@ class App extends Component{
     render(){
         return(
             <div>
-                Hello world!
+                Hello dev server!
             </div>
-        )
+        );
     }
 }
-
 
 ReactDom.render(
     <App />,
