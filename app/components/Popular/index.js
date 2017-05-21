@@ -17,7 +17,9 @@ class RepoGrid extends Component {
                             <div className="popular-rank">#{index + 1}</div>
                             <ul className="space-list-items">
                                 <li>
-                                    <img className="avatar" src={repo.owner.avatar_url}/>
+                                    <a href={repo.html_url}>
+                                        <img className="avatar" src={repo.owner.avatar_url}/>
+                                    </a>
                                 </li>
                                 <li><a href={repo.html_url}>{repo.name}</a></li>
                                 <li>@{repo.owner.login}</li>
@@ -31,13 +33,23 @@ class RepoGrid extends Component {
     }
 }
 
+class CuteSpinner extends Component {
+    render() {
+        return (
+            <div className="spinner">
+                <div className="cube1"/>
+                <div className="cube2"/>
+            </div>
+        );
+    }
+}
 
 export default class Popular extends Component {
     constructor(props) {
         super(props);
         this.state = {
             selectedLanguage: 'All',
-            repos: []
+            repos: undefined
         };
 
         this.updateLanguage = this.updateLanguage.bind(this);
@@ -47,16 +59,18 @@ export default class Popular extends Component {
         this.updateLanguage(this.state.selectedLanguage)
     }
 
+
     updateLanguage(lang) {
+        this.setState(() => ({selectedLanguage: lang, repos: undefined}));
         fetchPopularRepos(lang)
             .then(repos => {
-                this.setState(()=>({selectedLanguage: lang, repos: repos}))
+                setTimeout(() => this.setState(() => ({repos: repos})), 1500)
             })
+
     }
 
     render() {
-        let languages = ['All', 'Javascript', 'Lisp', 'Java', 'C++', 'Python'];
-
+        let languages = ['All', 'Javascript', 'Lisp', 'Java', 'C++', 'Python', 'C', 'Prolog', 'php'];
         return (
             <div>
                 <ul className="languages">
@@ -65,14 +79,14 @@ export default class Popular extends Component {
                             <li
                                 onClick={this.updateLanguage.bind(null, language)}
                                 key={language}
-                                style={language === this.state.selectedLanguage ? {color: '#d0021b'} : null}
+                                style={language === this.state.selectedLanguage ? {color: '#aca7a6'} : null}
                             >
                                 {language}
                             </li>
                         )
                     })}
                 </ul>
-                {!this.state.repos ? 'LOADING': <RepoGrid repos={this.state.repos}/>}
+                {!this.state.repos ? <CuteSpinner/> : <RepoGrid repos={this.state.repos}/>}
             </div>
         );
     }
