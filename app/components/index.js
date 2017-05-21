@@ -1,2 +1,2 @@
-import { App } from './App';
-import { Popular } from './Popular';
+import  App  from './App';
+import  Popular from './Popular';
