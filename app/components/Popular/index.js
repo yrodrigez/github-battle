@@ -33,7 +33,18 @@ export default class Popular extends Component {
     }
 
     render() {
-        let languages = ['All', 'Javascript', 'Lisp', 'Java', 'C++', 'Python', 'C', 'Prolog', 'php'];
+        let languages = [
+            'All',
+            'Javascript',
+            'Lisp',
+            'Java',
+            'C++',
+            'Python',
+            'C',
+            'Prolog',
+            'php',
+            'Assembly'
+        ];
         return (
             <div>
                 <ul className="languages">
