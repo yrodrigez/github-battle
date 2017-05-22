@@ -4,7 +4,7 @@ import {fetchPopularRepos} from '../../utils/api';
 
 import CuteSpinner from '../CuteSpinner';
 import RepoGrid from '../RepoGrid';
-
+import LanguageSelector from '../LanguageSelector';
 
 export default class Popular extends Component {
     constructor(props) {
@@ -21,9 +21,8 @@ export default class Popular extends Component {
         this.updateLanguage(this.state.selectedLanguage)
     }
 
-
     updateLanguage(lang) {
-        if( lang === this.state.selectedLanguage && this.state.selectedLanguage !== 'All') return;
+        if (lang === this.state.selectedLanguage && lang !== 'ALL') return;
         this.setState(() => ({selectedLanguage: lang, repos: undefined}));
         fetchPopularRepos(lang)
             .then(repos => {
@@ -33,33 +32,9 @@ export default class Popular extends Component {
     }
 
     render() {
-        let languages = [
-            'All',
-            'Javascript',
-            'Lisp',
-            'Java',
-            'C++',
-            'Python',
-            'C',
-            'Prolog',
-            'php',
-            'Assembly'
-        ];
         return (
             <div>
-                <ul className="languages">
-                    {languages.map((language) => {
-                        return (
-                            <li
-                                onClick={this.updateLanguage.bind(null, language)}
-                                key={language}
-                                style={language === this.state.selectedLanguage ? {color: '#aca7a6'} : null}
-                            >
-                                {language}
-                            </li>
-                        )
-                    })}
-                </ul>
+                <LanguageSelector selectedLanguage={ this.state.selectedLanguage } onClick={ this.updateLanguage }/>
                 {!this.state.repos ? <CuteSpinner/> : <RepoGrid repos={this.state.repos}/>}
             </div>
         );

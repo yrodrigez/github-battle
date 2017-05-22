@@ -1,0 +1,11 @@
+.languages {
+    display: flex;
+    justify-content: center;
+    color: white;
+}
+
+.languages li {
+    margin: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
