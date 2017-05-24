@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {ReactRouter, Route, Router, HashRouter} from 'react-router-dom';
+import {ReactRouter, Route, Switch, HashRouter} from 'react-router-dom';
 
 import Popular from '../Popular';
+import Home from '../Home';
 import Nav from '../Nav';
 
 require('./index.css');
@@ -9,10 +10,15 @@ require('./index.css');
 export default class App extends Component {
     render() {
         return (
-            <HashRouter >
+            <HashRouter>
                 <div style={{background: '#2c3e50'}}>
                     <Nav/>
-                    <Route path="/popular" component={Popular}/>
+                    <Switch>
+                        <Route exact path="/" component={Home}/>
+                        <Route path="/popular" component={Popular}/>
+
+                        <Route render={function(){return <h1>Not found</h1>} }/>
+                    </Switch>
                 </div>
             </HashRouter>
         );

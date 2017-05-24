@@ -22,13 +22,11 @@ export default class Popular extends Component {
     }
 
     updateLanguage(lang) {
-        if (lang === this.state.selectedLanguage && lang !== 'ALL') return;
+        if (lang === this.state.selectedLanguage && lang !== 'All') return;
         this.setState(() => ({selectedLanguage: lang, repos: undefined}));
-        fetchPopularRepos(lang)
-            .then(repos => {
-                setTimeout(() => this.setState(() => ({repos: repos})), 1500)
-            })
 
+        fetchPopularRepos(lang)
+            .then(repos => {this.setState(() => ({repos: repos}))})
     }
 
     render() {
